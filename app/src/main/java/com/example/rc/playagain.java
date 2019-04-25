@@ -1,6 +1,8 @@
 package com.example.rc;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,14 +11,15 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 
-public class stepseven extends Fragment {
+public class playagain extends Fragment {
 
-    View v;
+   View v;
 
-    public stepseven() {
+    public playagain() {
         // Required empty public constructor
     }
 
@@ -24,22 +27,23 @@ public class stepseven extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        v = inflater.inflate(R.layout.fragment_stepseven,container, false);
-        configureImageButton();
+        v = inflater.inflate(R.layout.fragment_playagain,container, false);
+        YesAgainButton();
+        NoAgainButton();
         return v;
     }
 
-    private void configureImageButton() {
+    private void YesAgainButton() {
 
-        ImageButton btn = (ImageButton) v.findViewById(R.id.steponeImage);
+        Button btn = (Button) v.findViewById(R.id.yes);
 
         btn.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                Fragment fragment = new playagain();
+                //put scramble for cube in there
+                Fragment fragment = new stepone();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.showthestuff, fragment);
@@ -48,9 +52,23 @@ public class stepseven extends Fragment {
             }
         });
 
-
     }
 
+    private void NoAgainButton() {
+
+        Button btn = (Button) v.findViewById(R.id.no);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getActivity(), MainActivity.class);
+                startActivity(i);
+                ((Activity) getActivity()).overridePendingTransition(0, 0);
+            }
+        });
 
 
+    }
 }
